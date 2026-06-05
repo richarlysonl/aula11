@@ -5,38 +5,50 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         AlunoHashTable tabela = new AlunoHashTable();
-
-        System.out.println("╔════════════════════════════════════════╗");
-        System.out.println("║     Sistema de Gestão de Alunos        ║");
-        System.out.println("╚════════════════════════════════════════╝");
-
+        System.out.println("Sistema de Gestão de Alunos");
         int opcao;
         do {
             exibirMenu();
             System.out.print("Opção: ");
             opcao = lerInt(sc);
-
             switch (opcao) {
-                case 1 -> inserirAluno(sc, tabela);
-                case 2 -> buscarAluno(sc, tabela);
-                case 3 -> removerAluno(sc, tabela);
-                case 4 -> verificarChave(sc, tabela);
-                case 5 -> System.out.println("\nTotal de alunos: " + tabela.size());
-                case 6 -> System.out.println("\nTabela vazia: " + tabela.isEmpty());
-                case 7 -> limparTabela(sc, tabela);
-                case 8 -> System.out.println("\n" + tabela);
-                case 0 -> System.out.println("\nEncerrando. Até logo!");
-                default -> System.out.println("\nOpção inválida. Tente novamente.");
+                case 1:
+                    inserirAluno(sc, tabela);
+                    break;
+                case 2:
+                    buscarAluno(sc, tabela);
+                    break;
+                case 3:
+                    removerAluno(sc, tabela);
+                    break;
+                case 4:
+                    verificarChave(sc, tabela);
+                    break;
+                case 5:
+                    System.out.println("\nTotal de alunos: " + tabela.size());
+                    break;
+                case 6:
+                    System.out.println("\nTabela vazia: " + tabela.isEmpty());
+                    break;
+                case 7:
+                    limparTabela(sc, tabela);
+                    break;
+                case 8:
+                    System.out.println("\n" + tabela);
+                    break;
+                case 0:
+                    System.out.println("\nEncerrando. Até logo!");
+                    break;
+                default:
+                    System.out.println("\nOpção inválida. Tente novamente.");
+                    break;
             }
 
         } while (opcao != 0);
 
         sc.close();
     }
-
-    // ─── Menu ─────────────────────────────────────────────────────────────────
     private static void exibirMenu() {
-        System.out.println("\n─────────────────────────────────────────");
         System.out.println(" 1. Inserir / Atualizar aluno (put)");
         System.out.println(" 2. Buscar aluno (get)");
         System.out.println(" 3. Remover aluno (remove)");
@@ -46,33 +58,26 @@ public class Main {
         System.out.println(" 7. Limpar tabela (clear)");
         System.out.println(" 8. Exibir tabela completa");
         System.out.println(" 0. Sair");
-        System.out.println("─────────────────────────────────────────");
     }
-
-    // ─── Operações ────────────────────────────────────────────────────────────
     private static void inserirAluno(Scanner sc, AlunoHashTable tabela) {
         System.out.println("\n[ Inserir / Atualizar Aluno ]");
         String nome  = lerString(sc, "Nome  : ");
         String curso = lerString(sc, "Curso : ");
         int    idade = lerIdade(sc);
-
         AlunoHashTable.Aluno aluno = new AlunoHashTable.Aluno(nome, curso, idade);
         boolean jaExistia = tabela.containsKey(nome, curso, idade);
         tabela.put(nome, curso, idade, aluno);
-
         if (jaExistia) {
             System.out.println("Aluno atualizado com sucesso.");
         } else {
             System.out.println("Aluno inserido com sucesso. Total: " + tabela.size());
         }
     }
-
     private static void buscarAluno(Scanner sc, AlunoHashTable tabela) {
         System.out.println("\n[ Buscar Aluno ]");
         String nome  = lerString(sc, "Nome  : ");
         String curso = lerString(sc, "Curso : ");
         int    idade = lerIdade(sc);
-
         AlunoHashTable.Aluno aluno = tabela.get(nome, curso, idade);
         if (aluno != null) {
             System.out.println("Aluno encontrado: " + aluno);
@@ -80,7 +85,6 @@ public class Main {
             System.out.println("Aluno não encontrado.");
         }
     }
-
     private static void removerAluno(Scanner sc, AlunoHashTable tabela) {
         System.out.println("\n[ Remover Aluno ]");
         String nome  = lerString(sc, "Nome  : ");
@@ -94,7 +98,6 @@ public class Main {
             System.out.println("Aluno não encontrado. Nada foi removido.");
         }
     }
-
     private static void verificarChave(Scanner sc, AlunoHashTable tabela) {
         System.out.println("\n[ Verificar Chave ]");
         String nome  = lerString(sc, "Nome  : ");
@@ -104,7 +107,6 @@ public class Main {
         boolean existe = tabela.containsKey(nome, curso, idade);
         System.out.println(existe ? "Chave ENCONTRADA na tabela." : "Chave NÃO encontrada na tabela.");
     }
-
     private static void limparTabela(Scanner sc, AlunoHashTable tabela) {
         System.out.print("\nConfirma limpeza total da tabela? (s/n): ");
         String resp = sc.nextLine().trim();
@@ -115,8 +117,6 @@ public class Main {
             System.out.println("Operação cancelada.");
         }
     }
-
-    // ─── Leitura segura ───────────────────────────────────────────────────────
     private static String lerString(Scanner sc, String prompt) {
         String valor = "";
         while (valor.isEmpty()) {
@@ -126,7 +126,6 @@ public class Main {
         }
         return valor;
     }
-
     private static int lerIdade(Scanner sc) {
         while (true) {
             System.out.print("Idade : ");
@@ -140,7 +139,6 @@ public class Main {
             }
         }
     }
-
     private static int lerInt(Scanner sc) {
         try {
             return Integer.parseInt(sc.nextLine().trim());
@@ -149,3 +147,4 @@ public class Main {
         }
     }
 }
+
